@@ -8,6 +8,11 @@ import path from "path";
 import multer from "multer";
 import { User, InsertUser } from "@shared/schema";
 
+// Helper function to ensure a string is not undefined
+function ensureString(value: string | undefined): string {
+  return value ?? '';
+}
+
 // Setup multer for file uploads
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -61,7 +66,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "user_create",
         userId: (req.user as User).id,
         details: `Created new user: ${username}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "info"
       });
@@ -99,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "user_deactivate",
         userId: (req.user as User).id,
         details: `Deactivated user: ${user.username}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "warning"
       });
@@ -198,7 +203,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "upload",
         userId: (req.user as User).id,
         details: `Uploaded file: ${req.file.originalname}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "info"
       });
@@ -269,7 +274,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "download",
         userId: (req.user as User).id,
         details: `Downloaded file: ${file.name}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "info"
       });
@@ -317,7 +322,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "permission_change",
         userId: (req.user as User).id,
         details: `Changed file visibility for ${file.name} to ${isPublic ? 'public' : 'private'}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "info"
       });
@@ -355,7 +360,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "delete",
         userId: (req.user as User).id,
         details: `Deleted file: ${file.name}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "warning"
       });
@@ -448,7 +453,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "message_deleted",
         userId: (req.user as User).id,
         details: `Admin deleted message: ${reason || 'No reason provided'}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "warning"
       });
@@ -484,7 +489,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "delete",
         userId: (req.user as User).id,
         details: `Admin deleted file ${file.name}: ${reason || 'No reason provided'}`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "warning"
       });
@@ -513,7 +518,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "config_update",
         userId: (req.user as User).id,
         details: `Updated system settings`,
-        ip: req.ip,
+        ip: ensureString(req.ip),
         timestamp: new Date(),
         severity: "info"
       });

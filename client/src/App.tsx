@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Redirect } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -7,16 +7,35 @@ import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/home-page";
 import AuthPage from "@/pages/auth-page";
 import AdminPage from "@/pages/admin-page";
-import { ProtectedRoute } from "./lib/protected-route";
+import { useAuth } from "./hooks/use-auth";
 import { AuthProvider } from "./hooks/use-auth";
+import { Loader2 } from "lucide-react";
 
 function Router() {
   return (
     <Switch>
-      <ProtectedRoute path="/" component={HomePage} />
-      <ProtectedRoute path="/admin" component={AdminPage} />
-      <Route path="/auth" component={AuthPage} />
-      <Route component={NotFound} />
+      <Route path="/">
+        {() => {
+          const { user, isLoading } = useAuth();
+          if (isLoading) return <div className="flex items-center justify-center min-h-screen"><Loader2 className="h-8 w-8 animate-spin text-border" /></div>;
+          if (!user) return <Redirect to="/auth" />;
+          return <HomePage />;
+        }}
+      </Route>
+      <Route path="/admin">
+        {() => {
+          const { user, isLoading } = useAuth();
+          if (isLoading) return <div className="flex items-center justify-center min-h-screen"><Loader2 className="h-8 w-8 animate-spin text-border" /></div>;
+          if (!user) return <Redirect to="/auth" />;
+          return <AdminPage />;
+        }}
+      </Route>
+      <Route path="/auth">
+        <AuthPage />
+      </Route>
+      <Route path="*">
+        <NotFound />
+      </Route>
     </Switch>
   );
 }
