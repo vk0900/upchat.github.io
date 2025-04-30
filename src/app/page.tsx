@@ -50,7 +50,7 @@ export default function AdminLogsPage() {
     const [logTypeFilter, setLogTypeFilter] = useState<string>("all");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalLogs, setTotalLogs] = useState(0);
-    const [totalPages, setTotalPages] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // State variable for total pages
     const [sortBy, setSortBy] = useState<'timestamp' | 'type' | 'username'>('timestamp');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
     const { toast } = useToast();
@@ -94,7 +94,7 @@ export default function AdminLogsPage() {
             if (result.success) {
                 setLogs(result.logs || []);
                 setTotalLogs(result.totalLogs || 0);
-                setTotalPages(result.totalPages || 1);
+                setTotalPages(result.totalPages || 1); // Set total pages from response
                 setCurrentPage(result.currentPage || 1); // Sync page number
             } else {
                 toast({ variant: "destructive", title: "Error", description: result.error || "Could not fetch logs." });
@@ -191,8 +191,7 @@ export default function AdminLogsPage() {
         }
     }
 
-
-    // This declaration was removed as it conflicts with the state variable
+    // Remove the conflicting declaration below, use the state variable 'totalPages'
     // const totalPages = Math.ceil(totalLogs / LOGS_PER_PAGE);
 
     const handlePreviousPage = () => {
@@ -200,6 +199,7 @@ export default function AdminLogsPage() {
     };
 
     const handleNextPage = () => {
+        // Use the state variable 'totalPages' here
         setCurrentPage((prev) => Math.min(prev + 1, totalPages));
     };
 
