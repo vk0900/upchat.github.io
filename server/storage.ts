@@ -127,9 +127,9 @@ export class MemStorage implements IStorage {
     // Create a default admin user if none exists
     const adminExists = await this.getUserByUsername('admin');
     if (!adminExists) {
-      // Default admin with password 'admin123' (using the same hash format as our hashPassword function)
-      const salt = "0123456789abcdef";
-      const hashedPassword = `240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9.${salt}`;
+      // Create admin with password 'admin123' using a pre-hashed value with a known salt
+      // The salt is "0123456789abcdef" and the password is "admin123"
+      const hashedPassword = "dd421f5d88cffa36139fa157a1545c65752c46f69aaf98ccad450d14e5378ea8ee010923f1388f28ab872673babbb5dd2eb87caba3d35a3e9a3c80dace92eab0.0123456789abcdef";
       
       await this.createUser({
         username: 'admin',

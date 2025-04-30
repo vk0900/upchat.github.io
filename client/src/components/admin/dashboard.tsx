@@ -19,8 +19,18 @@ export default function Dashboard() {
     queryKey: ["/api/users"],
   });
   
+  // Define interface for stats data structure
+  interface SystemStats {
+    totalUsers: number;
+    usersTrend: string;
+    filesShared: number;
+    filesTrend: string;
+    storageUsed: string;
+    storageLimit: string;
+  }
+  
   // Default stats if data is not loaded
-  const displayStats = stats || {
+  const displayStats: SystemStats = stats as SystemStats || {
     totalUsers: 7,
     usersTrend: '+2',
     filesShared: 23,
@@ -29,8 +39,25 @@ export default function Dashboard() {
     storageLimit: '10 GB'
   };
   
+  // Define activity interfaces
+  interface ActivityData {
+    fileName?: string;
+    fileSize?: string;
+    newUsername?: string;
+    newUserId?: number;
+    newPermission?: string;
+  }
+  
+  interface Activity {
+    id: number | string;
+    type: string;
+    userId: number;
+    data: ActivityData;
+    timestamp: Date;
+  }
+  
   // Default activities if data is not loaded
-  const displayActivities = activities || [
+  const displayActivities: Activity[] = activities as Activity[] || [
     {
       id: 1,
       type: 'file_upload',
