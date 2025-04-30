@@ -1,0 +1,54 @@
+name: Deploy FileChat Application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Check TypeScript
+      run: npm run check
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Setup environment variables
+      run: |
+        echo "SESSION_SECRET=supersecretkey" >> $GITHUB_ENV
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+
+    - name: Run tests
+      run: |
+        if [ -f "package.json" ] && grep -q "\"test\":" "package.json"; then
+          npm test
+        else
+          echo "No tests to run"
+        fi
+        
+    - name: Deploy to production
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: |
+        echo "Deploying to production..."
+        # Add deployment commands here
+        # For example, copy files to server, restart application, etc.
+        echo "Deployment completed!"

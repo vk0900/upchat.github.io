@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 235 85.6% 64.3%;  /* Discord primary */
+  --primary-foreground: 211 100% 99%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+
+  /* Discord Colors */
+  --discord-primary: 235 85.6% 64.3%;
+  --discord-primary-hover: 235 51.4% 60.2%;
+  --discord-secondary: 227 58% 44.5%;
+  --discord-dark: 220 6.5% 23.9%;
+  --discord-darker: 220 7.7% 20.4%;
+  --discord-darkest: 220 7.9% 13.7%;
+  --discord-light: 214 8.1% 73.9%;
+  --discord-success: 141 76.5% 48.2%;
+  --discord-danger: 0 84.2% 60.2%;
+  --discord-warning: 39 100% 54.1%;
+  --discord-mention: 39 100% 54.1% / 0.1;
+}
+
+.dark {
+  --background: 220 6.5% 23.9%;
+  --foreground: 0 0% 98%;
+  --muted: 220 7.7% 20.4%;
+  --muted-foreground: 214 8.1% 73.9%;
+  --popover: 220 6.5% 23.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 220 6.5% 23.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 220 7.7% 20.4%;
+  --input: 220 7.7% 20.4%;
+  --primary: 235 85.6% 64.3%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 220 7.7% 20.4%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 220 7.7% 20.4%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+
+  /* Discord Colors */
+  --discord-primary: 235 85.6% 64.3%;
+  --discord-primary-hover: 235 51.4% 60.2%;
+  --discord-secondary: 227 58% 44.5%;
+  --discord-dark: 220 6.5% 23.9%;
+  --discord-darker: 220 7.7% 20.4%;
+  --discord-darkest: 220 7.9% 13.7%;
+  --discord-light: 214 8.1% 73.9%;
+  --discord-success: 141 76.5% 48.2%;
+  --discord-danger: 0 84.2% 60.2%;
+  --discord-warning: 39 100% 54.1%;
+  --discord-mention: 39 100% 54.1% / 0.1;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-discord-dark text-white;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  .bg-discord-primary {
+    @apply bg-[hsl(var(--discord-primary))];
+  }
+  .bg-discord-primary-hover {
+    @apply bg-[hsl(var(--discord-primary-hover))];
+  }
+  .bg-discord-secondary {
+    @apply bg-[hsl(var(--discord-secondary))];
+  }
+  .bg-discord-dark {
+    @apply bg-[hsl(var(--discord-dark))];
+  }
+  .bg-discord-darker {
+    @apply bg-[hsl(var(--discord-darker))];
+  }
+  .bg-discord-darkest {
+    @apply bg-[hsl(var(--discord-darkest))];
+  }
+  .bg-discord-success {
+    @apply bg-[hsl(var(--discord-success))];
+  }
+  .bg-discord-danger {
+    @apply bg-[hsl(var(--discord-danger))];
+  }
+  .bg-discord-warning {
+    @apply bg-[hsl(var(--discord-warning))];
+  }
+  .bg-discord-mention {
+    @apply bg-[hsl(var(--discord-mention))];
+  }
+  
+  .text-discord-light {
+    @apply text-[hsl(var(--discord-light))];
+  }
+  .text-discord-success {
+    @apply text-[hsl(var(--discord-success))];
+  }
+  .text-discord-danger {
+    @apply text-[hsl(var(--discord-danger))];
+  }
+  .text-discord-warning {
+    @apply text-[hsl(var(--discord-warning))];
+  }
+  .text-discord-primary {
+    @apply text-[hsl(var(--discord-primary))];
+  }
+  
+  .border-discord-darker {
+    @apply border-[hsl(var(--discord-darker))];
+  }
+  
+  .hover\:bg-discord-darker:hover {
+    @apply bg-[hsl(var(--discord-darker))];
+  }
+  .hover\:bg-discord-dark:hover {
+    @apply bg-[hsl(var(--discord-dark))];
+  }
+  .hover\:bg-discord-primary:hover {
+    @apply bg-[hsl(var(--discord-primary))];
+  }
+  .hover\:bg-discord-primary-hover:hover {
+    @apply bg-[hsl(var(--discord-primary-hover))];
+  }
+  
+  .hover\:text-white:hover {
+    @apply text-white;
+  }
+}
